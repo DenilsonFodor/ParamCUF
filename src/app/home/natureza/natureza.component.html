@@ -1,0 +1,28 @@
+<div class="po-wrapper">
+    
+    <po-page-list #poPageList 
+        [p-breadcrumb]='breadcrumb'
+        [p-actions]="actions">
+        
+        <po-loading-overlay 
+            [hidden]="escondeTimer"
+        ></po-loading-overlay>
+
+        <po-divider
+            p-label="Registros"
+        ></po-divider>
+    
+        <po-table
+            [p-columns]="columnsNatur"
+            [p-items]="itemsNatur"
+            [p-actions]="actionsNatur"
+            p-container="shadow"
+            p-striped="true"
+            [p-sort]="true"
+            (p-infinite-scroll)="true"
+            p-hide-columns-manager="true"
+        ></po-table>
+
+    </po-page-list>
+
+</div>

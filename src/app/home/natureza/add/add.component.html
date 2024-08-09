@@ -1,0 +1,39 @@
+<po-page-edit
+    p-title="Incluir Registros"
+    [p-breadcrumb]="breadcrumb"
+    [p-literals]="{ save: 'Salvar', saveNew: 'Salvar', cancel: 'Cancelar' }"
+    (p-cancel)="cancelar()"
+    (p-save-new)="salvar()">
+
+    <po-loading-overlay 
+        [hidden]="escondeTimer"
+    ></po-loading-overlay>
+
+    <po-widget>
+        <div class="po-row">
+
+        
+            <po-input class= 'po-p-2' 
+                p-label="Item" 
+                p-required
+                [(ngModel)]="regNat['it-codigo']"
+            ></po-input>
+
+            <po-input class= 'po-p-2' 
+                p-label="Natureza" 
+                p-required
+                [(ngModel)]="regNat['nat-operacao']"
+            ></po-input>
+
+            <po-switch class= 'po-p-2' 
+                p-label="Zera Aliquota"
+                p-label-on="Sim"
+                p-label-off="Nao"
+                [(ngModel)]="regNat['zera-aliq']"
+            ></po-switch>
+
+        </div>
+    </po-widget>
+
+</po-page-edit>
+
