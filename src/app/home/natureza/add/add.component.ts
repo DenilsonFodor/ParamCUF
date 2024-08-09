@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PoBreadcrumb, PoDialogService } from '@po-ui/ng-components';
 import { Location } from '@angular/common';
 import { NaturezaService } from '../natureza.service';
+import { StorageService } from '../../../storage.service';
 
 @Component({
   selector: 'app-add',
@@ -12,6 +13,7 @@ export class AddComponent implements OnInit {
 
   constructor(private location: Location,
               private natService: NaturezaService,
+              private storageService: StorageService,
               private poDialog: PoDialogService) {}
 
   public readonly breadcrumb: PoBreadcrumb = {
@@ -33,7 +35,7 @@ export class AddComponent implements OnInit {
 
   action: string = ''
   escondeTimer = true
-  regsRelatorio: any = []
+  registroADD: any = []
   
   ngOnInit(): void {
   
@@ -51,15 +53,17 @@ export class AddComponent implements OnInit {
   gravaRegistro() {
     this.escondeTimer = false
     let jsonRegistros = JSON.stringify(this.regNat);
-    this.regsRelatorio = jsonRegistros
-    console.log(jsonRegistros)
-    this.natService.updReg(this.regsRelatorio).subscribe(
+    this.registroADD = jsonRegistros
+    console.log(this.registroADD)
+    this.natService.addReg(this.registroADD).subscribe(
       resposta => {
           console.log(resposta)
+          this.storageService.setDados('LastADD', this.registroADD) 
           
         }
     )
     this.escondeTimer = true
+    this.location.back();
     
   }
  

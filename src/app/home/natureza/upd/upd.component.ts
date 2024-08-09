@@ -41,7 +41,7 @@ export class UpdComponent implements OnInit {
 
   action: string = ''
   escondeTimer = true
-  regsRelatorio: any = []
+  registroUPD: any = []
   
   ngOnInit(): void {
     this.regUpdNat = this.storageService.getDados('ItemNatur')
@@ -60,15 +60,15 @@ export class UpdComponent implements OnInit {
   gravaRegistro() {
     this.escondeTimer = false
     let jsonRegistros = JSON.stringify(this.regUpdNat);
-    this.regsRelatorio = jsonRegistros
+    this.registroUPD = jsonRegistros
     console.log(jsonRegistros)
-    this.natService.updReg(this.regsRelatorio).subscribe(
+    this.natService.updReg(this.registroUPD).subscribe(
       resposta => {
           console.log(resposta)
+          this.storageService.removeDados('ItemNatur')
           this.escondeTimer = true
         }
     )
-    this.storageService.removeDados('ItemNatur')
     this.location.back();
     
   }

@@ -78,7 +78,7 @@ constructor(private natService: NaturezaService,
   editaRegistros(reg: any) {
     this.storageService.setDados('ItemNatur', reg) 
     this.router.navigate(['/home/natureza/upd'])
-    //this.router.navigate([`/home/natureza/upd/${reg.pRowid}`])
+    
   }
 
   excluir(reg: any) {
