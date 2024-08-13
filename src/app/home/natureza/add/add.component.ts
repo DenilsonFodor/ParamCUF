@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { PoBreadcrumb, PoDialogService } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoDialogService, PoLookupColumn } from '@po-ui/ng-components';
 import { Location } from '@angular/common';
 import { NaturezaService } from '../natureza.service';
 import { StorageService } from '../../../storage.service';
+import { ProductService } from '../product.service';
+import { NatOperacaoService } from '../nat-operacao.service';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrl: './add.component.css'
+  styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-
+  
   constructor(private location: Location,
               private natService: NaturezaService,
               private storageService: StorageService,
-              private poDialog: PoDialogService) {}
+              private poDialog: PoDialogService,
+              public prodService: ProductService,
+              public natOperacaoService: NatOperacaoService
+            ) {
+            }
 
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }, 
@@ -22,6 +28,22 @@ export class AddComponent implements OnInit {
             { label: 'Incluir' }
     ]
   };
+
+  public readonly columnsProduto: Array<PoLookupColumn> = [
+    { property: 'product',              label: 'Item' },
+    { property: 'productDescription',   label: 'Descricao' },
+    { property: 'fiscalClassification', label: 'Class.Fiscal' }
+  ];
+
+ 
+  public readonly columnsNatOperacao: Array<PoLookupColumn> = [
+    { property: 'cfopCode',        label: 'CFOP' },
+    { property: 'description',     label: 'Descricao' },
+    { property: 'descriptionType', label: 'Tipo' },
+    { property: 'natOperation',    label: 'Nat.Operacao' },
+  ];
+
+  public readonly obrigatorio: boolean = true
 
   regNat: any = {
    // ['char-1'] :"",
@@ -34,14 +56,21 @@ export class AddComponent implements OnInit {
   }
 
   action: string = ''
+  endpoint: string = ''
+  header: any
   escondeTimer = true
   registroADD: any = []
+
+  entity:any;
+  filmItemsFiltered:any;
+  filterParams = 'people';
   
   ngOnInit(): void {
-  
+    
   }
 
   salvar() {
+
     this.poDialog.confirm({
       title: 'Inclusão de Registro',
       message: `Confirma a inclusão do registro?`,
@@ -70,5 +99,6 @@ export class AddComponent implements OnInit {
   cancelar(): void {
     this.location.back(); // Volta para a página anterior
   }
+
 
 }

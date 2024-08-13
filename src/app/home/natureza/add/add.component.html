@@ -12,19 +12,33 @@
     <po-widget>
         <div class="po-row">
 
-        
-            <po-input class= 'po-p-2' 
-                p-label="Item" 
-                p-required
+            <po-lookup class= 'po-p-2'
+                name="lookup"
+                p-label="Item"
+                p-field-label="product"
+                p-field-value="product"
+                [p-filter-service]="prodService"
+                [p-columns]="columnsProduto"
                 [(ngModel)]="regNat['it-codigo']"
-            ></po-input>
+                p-infinite-scroll="true"
+                p-hide-columns-manager="true"
+                (p-required)='obrigatorio'
+                
+            ></po-lookup>
 
-            <po-input class= 'po-p-2' 
-                p-label="Natureza" 
-                p-required
+            <po-lookup class= 'po-p-2'
+                name="lookup"
+                p-label="Natureza de Operação"
+                p-field-label="cfopCode"
+                p-field-value="cfopCode"
+                [p-columns]="columnsNatOperacao"
+                [p-filter-service]="natOperacaoService"
                 [(ngModel)]="regNat['nat-operacao']"
-            ></po-input>
-
+                p-infinite-scroll="true"
+                p-hide-columns-manager="true"
+                (p-required)="obrigatorio"
+            ></po-lookup>
+ 
             <po-switch class= 'po-p-2' 
                 p-label="Zera Aliquota"
                 p-label-on="Sim"
