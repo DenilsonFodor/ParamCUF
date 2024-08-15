@@ -1,9 +1,9 @@
 export const environment = {
     production: true,
     type: 'tomcat',
-    url: 'http://172.20.32.69:8080',
+    url: '',
     api: '/api/cufp/v1',
-    auth: 'denilsonf.ne:protege',
+    auth: '',
     token: '',
 
 };
