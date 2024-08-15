@@ -6,7 +6,7 @@ import { AddComponent } from './natureza/add/add.component';
 import { UpdComponent } from './natureza/upd/upd.component';
 
 const routes: Routes = [
-  { path: '' , pathMatch: 'full' , redirectTo:'home'},
+  { path: '' , pathMatch: 'full' , redirectTo:'natureza'},
   { path: '', component: HomeComponent, children: [
       {path: 'natureza', component: NaturezaComponent},
       {path: 'natureza/add', component: AddComponent},
