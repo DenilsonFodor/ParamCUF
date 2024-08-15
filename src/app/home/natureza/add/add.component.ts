@@ -25,7 +25,7 @@ export class AddComponent implements OnInit {
   public readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Home', link: '/' }, 
             { label: 'Naturezas', link: 'home/natureza' },
-            { label: 'Incluir' }
+            { label: 'Incluir', link: undefined }
     ]
   };
 
