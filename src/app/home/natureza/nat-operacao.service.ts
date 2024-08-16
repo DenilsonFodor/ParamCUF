@@ -2,9 +2,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { PoLookupFilteredItemsParams } from '@po-ui/ng-components';
-import { Observable, tap } from 'rxjs';
-
+import { PoLookupFilteredItemsParams, PoNotificationService } from '@po-ui/ng-components';
+import { catchError, map, Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -14,18 +13,15 @@ export class NatOperacaoService {
 
   public endpointNatur = `${environment.url}/api/cdp/v1/cfgTransactionType`;
 
-  constructor(private HttpClient: HttpClient) { }
+  constructor(private HttpClient: HttpClient,
+              private poNotification: PoNotificationService
+  ) { }
 
 
   getFilteredItems(filteredParams: PoLookupFilteredItemsParams): Observable<any> {
     const { filterParams, advancedFilters, ...restFilteredItemsParams } = filteredParams;
     const params = { ...restFilteredItemsParams, ...filterParams, ...advancedFilters}
     
-    /*
-    const headers = new HttpHeaders({
-      'Content-Type':'application/json; charset-utf-8',
-      'Authorization': 'Basic ' + btoa("super:super")})
-    */
     const headers = new HttpHeaders().set('Authorization', "Basic " + btoa(environment.auth))
     
     console.log(params)
@@ -39,15 +35,26 @@ export class NatOperacaoService {
   }
 
   getObjectByValue(value: string): Observable<any> {
-    /*
-    const headers = new HttpHeaders({
-      'Content-Type':'application/json; charset-utf-8',
-      'Authorization': 'Basic ' + btoa("super:super")})
-    */
+
     const headers = new HttpHeaders().set('Authorization', "Basic " + btoa(environment.auth))
 
         return this.HttpClient.get<any>(`${this.endpointNatur}/?natOperation=${value}`, {headers})
-        //.pipe(tap((e:any)=>{return e.items[0]}))
+        //.pipe(map((e:any)=>{return e.items[0]}))
+        //.pipe(map((e:any) => e[0]))
+        .pipe(map(response => {
+          // Verifica se há itens na resposta
+          if (response && response.items && response.items.length > 0) {
+            return response.items[0]; // Retorna o primeiro item da lista
+          }
+          this.poNotification.error(`Natureza não encontrada`);
+
+          return null; // Retorna null se não houver itens
+        }),
+        catchError(error => {
+          console.error('Erro ao obter objeto pelo valor:', error);
+          return of(null); // Retorna null em caso de erro
+        })
+      );
     
   }
 

@@ -22,7 +22,7 @@
                 [(ngModel)]="regNat['it-codigo']"
                 p-infinite-scroll="true"
                 p-hide-columns-manager="true"
-                (p-required)='obrigatorio'
+                [p-required]='true'
                 
             ></po-lookup>
 
@@ -36,7 +36,8 @@
                 [(ngModel)]="regNat['nat-operacao']"
                 p-infinite-scroll="true"
                 p-hide-columns-manager="true"
-                (p-required)="obrigatorio"
+                [p-required]='true'
+                
             ></po-lookup>
  
             <po-switch class= 'po-p-2' 

@@ -70,25 +70,31 @@ export class AddComponent implements OnInit {
   }
 
   salvar() {
+    
+    console.log(this.regNat['it-codigo'])
 
-    this.poDialog.confirm({
-      title: 'Inclusão de Registro',
-      message: `Confirma a inclusão do registro?`,
-      confirm: () => this.gravaRegistro(),
-      cancel: () => {}
-    })
+    if (this.regNat['it-codigo'] != '' && this.regNat['nat-operacao'] != '') {
+      this.poDialog.confirm({
+        title: 'Inclusão de Registro',
+        message: `Confirma a inclusão do registro?`,
+        confirm: () => this.gravaRegistro(),
+        cancel: () => {}
+      })
+    }
+    else {
+      alert("Item e Natureza são obrigatorios")
+    }
+    
   } 
 
   gravaRegistro() {
     this.escondeTimer = false
     let jsonRegistros = JSON.stringify(this.regNat);
     this.registroADD = jsonRegistros
-    console.log(this.registroADD)
+    //console.log(this.registroADD)
     this.natService.addReg(this.registroADD).subscribe(
       resposta => {
-          console.log(resposta)
           this.storageService.setDados('LastADD', this.registroADD) 
-          
         }
     )
     this.escondeTimer = true
