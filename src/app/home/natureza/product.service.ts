@@ -32,7 +32,7 @@ export class ProductService {
     }
     else {
        //return this.httpClient.get<any>(this.endpointProd + `/?page=${params.page}&pageSize=${params.pageSize}`,  {headers});
-       return this.httpClient.get<any>(this.endpointProd + `/?page=${params.page}&pageSize=100`, {headers})
+       return this.httpClient.get<any>(this.endpointProd + `/?page=${params.page}&pageSize=50`, {headers})
       }
   }
 

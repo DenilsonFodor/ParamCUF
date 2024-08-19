@@ -66,10 +66,11 @@ export class UpdComponent implements OnInit {
       resposta => {
           console.log(resposta)
           this.storageService.removeDados('ItemNatur')
-          this.escondeTimer = true
-        }
+          this.location.back();
+      }
     )
-    this.location.back();
+    this.escondeTimer = true
+    
     
   }
  

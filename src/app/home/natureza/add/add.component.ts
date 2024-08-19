@@ -95,10 +95,11 @@ export class AddComponent implements OnInit {
     this.natService.addReg(this.registroADD).subscribe(
       resposta => {
           this.storageService.setDados('LastADD', this.registroADD) 
+          this.location.back();
         }
     )
     this.escondeTimer = true
-    this.location.back();
+ 
     
   }
  

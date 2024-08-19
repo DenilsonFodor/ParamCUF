@@ -6,10 +6,6 @@ import { environment } from '../../../environments/environment';
 
 const endpoint = `${environment.url + environment.api}/cufapi102`;
 
-const endpointProd = `${environment.url}/api/cdp/v1/product`;
-
-const endpointNatur = `${environment.url}/api/cdp/v1/cfgTransactionType`;
-
 var header = new HttpHeaders().set('Authorization', "Basic " + btoa(environment.auth))
 
 @Injectable({
@@ -28,7 +24,6 @@ export class NaturezaService{
   }
 
   public addReg(regs: JSON) {Observable<any>
-    console.log("zzz " + regs)
     return this.httpClient.post<any>(endpoint, regs, {headers:header});
   }  
 
@@ -37,21 +32,8 @@ export class NaturezaService{
   }  
 
   public delReg(rowid: string): Observable<any> {
-      return this.httpClient.delete<any>(endpoint + '/' + rowid,{headers:header});
+    return this.httpClient.delete<any>(endpoint + '/' + rowid,{headers:header});
   }
-
-  public getProduto(): Observable<any> {
-    return this.httpClient.get<any>(endpointProd,{headers:header});
-  }
-
-  public getNatureza(): Observable<any> {
-    return this.httpClient.get<any>(endpointNatur,{headers:header});
-  }
-
-
-
-
-
 
 }
 

@@ -91,15 +91,14 @@ constructor(private natService: NaturezaService,
     
   }
   excluiRegistros(reg: any) {
-    console.log(reg.pRowid)
     this.escondeTimer = false
     this.natService.delReg(reg.pRowid).subscribe(
       retorno => {
-        this.escondeTimer = true
-        console.log(retorno)
+        this.atualizaDados();
       }
     ) 
-    this.atualizaDados();
+    this.escondeTimer = true
+    
     
       
   }
