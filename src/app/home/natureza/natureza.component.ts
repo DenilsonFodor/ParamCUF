@@ -29,7 +29,7 @@ constructor(private natService: NaturezaService,
   columnsNatur:Array<PoTableColumn> = [
     { property: "it-codigo",    label: "Item/Serviço"} ,
     { property: "nat-operacao", label: "Natureza"} ,
-    { property: "zera-aliq",    label: "Zera Aliquota", type: 'boolean',
+    { property: "zera-aliq",    label: "Zera Impostos", type: 'boolean',
       labels: [ { value: 'true',  color: 'green', label: "SIM"},
                 { value: 'false', color: 'red',   label: "NAO"}
       ]
